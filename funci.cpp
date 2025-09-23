@@ -16,7 +16,7 @@ void ingresoPaciente();
 void menu();
 void mostrarPacientes();
 void gotoxy(int,int) ;
-
+void mostrarCursor(bool );
 void cambio_color(int x){
   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),x);
 }
@@ -291,6 +291,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
