@@ -111,38 +111,44 @@ void ingresoPaciente(){
     gotoxy(35,6);cout <<"DNI: "; cin >> nuevo.DNI;
     gotoxy(35,7);cout <<"Edad: "; cin >> nuevo.edad;
     gotoxy(35,8);cout <<"Sexo: "; cin >> nuevo.sexo;
-    gotoxy(35,9);cout <<"Nivel de gravedad: "; cin >> nuevo.gravedad;
+
+    // PARA validad entre 1 a 3
+    do {
+        gotoxy(35,9);cout <<"Nivel de gravedad [1-General | 2-UCIN | 3-UCI]: ";
+        cin >> nuevo.gravedad;
+        if(nuevo.gravedad < 1 || nuevo.gravedad > 3){
+            gotoxy(35,11);cout << "Error: nivel de gravedad invalido. Intente de nuevo.";
+        }
+    } while(nuevo.gravedad < 1 || nuevo.gravedad > 3);
 
     switch(nuevo.gravedad){
         case 1:
             if(contGeneral < 50) {   
             camaGeneral[contGeneral] = nuevo;
             contGeneral++;
-            gotoxy(35,11);cout << "Paciente guardado en cama General.";
+            gotoxy(35,13);cout << "Paciente guardado en cama General.";
             } else {
-            gotoxy(35,11);cout << " No hay espacio en cama General.";
+            gotoxy(35,13);cout << "No hay espacio en cama General.";
                }
         break;
         case 2:
             if (contUCIN < 30){
             camaUCIN[contUCIN] = nuevo;
             contUCIN++;
-            gotoxy(35,11);cout << "Paciente guardado en cama UCIN.";
+            gotoxy(35,13);cout << "Paciente guardado en cama UCIN.";
             }
 		    else{
-            gotoxy(35,11);cout <<"No hay espacio en cama UCIN.";
+            gotoxy(35,13);cout <<"No hay espacio en cama UCIN.";
              }
         break;
         case 3:
             if(contUCI < 20) {
             camaUCI[contUCI] = nuevo;
             contUCI++;
-            gotoxy(35,11);cout << "Paciente guardado en cama UCI.";
+            gotoxy(35,13);cout << "Paciente guardado en cama UCI.";
             } else{
-            gotoxy(35,11);cout << "No hay espacio en cama UCI.";
+            gotoxy(35,13);cout << "No hay espacio en cama UCI.";
               }
-        break;
-        default:
         break;
     }
 }
@@ -227,6 +233,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
