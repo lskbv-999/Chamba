@@ -122,20 +122,29 @@ void ingresoPaciente(){
     cin.ignore();
     getline(cin, nuevo.nombre);
     gotoxy(35,6);cout <<"DNI: "; cin >> nuevo.DNI;
+    while(nuevo.DNI<10000000 || nuevo.DNI>99999999 ){
+    	gotoxy(35,6); cout<<"                                            ";
+    	gotoxy(35,6);cout<<"DNI no valido, ingrese de nuevo: ";
+		cin >> nuevo.DNI;
+	}
     gotoxy(35,7);cout <<"Edad: "; cin >> nuevo.edad;
     gotoxy(35,8);cout <<"Sexo: "; cin >> nuevo.sexo;
 
     // PARA validad entre 1 a 3
     do {
-        gotoxy(35,9);cout <<"Nivel de gravedad [1-General | 2-UCIN | 3-UCI]: ";
+		gotoxy(35,9);cout <<"Nivel de gravedad [1-General | 2-UCIN | 3-UCI]: ";
         cin >> nuevo.gravedad;
         if(nuevo.gravedad < 1 || nuevo.gravedad > 3){
-			gotoxy(35+42,9); cout << "   ";
+        	gotoxy(35,11); cout<<"                                                      ";
             gotoxy(35,11);cout << "Error: nivel de gravedad invalido. Intente de nuevo.";
+            gotoxy(82,9); cout<<"     ";
         }
-    } while(nuevo.gravedad < 1 || nuevo.gravedad > 3);
 
-    switch(nuevo.gravedad){
+    } while(nuevo.gravedad < 1 || nuevo.gravedad > 3);
+    
+	gotoxy(35,11); cout<<"                                                     ";
+    
+	switch(nuevo.gravedad){
         case 1:
             if(contGeneral < 50) {   
             camaGeneral[contGeneral] = nuevo;
@@ -291,6 +300,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
