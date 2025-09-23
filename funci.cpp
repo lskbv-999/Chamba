@@ -104,6 +104,20 @@ void ingresoMedico(){
 void ingresoPaciente(){
     system("cls");
 	paciente nuevo;
+
+	for(int i=30; i<=90; i++){   
+        gotoxy(i,2); cout << char(205);
+         gotoxy(i,15); cout << char(205); }
+         
+    for(int j=2; j<=15; j++){   
+        gotoxy(30,j); cout << char(186);
+        gotoxy(90,j); cout << char(186);   }
+	
+           gotoxy(30,2); cout << char(201);  
+            gotoxy(90,2); cout << char(187);  
+        gotoxy(30,15); cout << char(200); 
+        gotoxy(90,15); cout << char(188); 
+	
     gotoxy(35,3);cout << "INGRESO DEL PACIENTE";
     gotoxy(35,5);cout << "Nombre: ";
     cin.ignore();
@@ -233,6 +247,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
