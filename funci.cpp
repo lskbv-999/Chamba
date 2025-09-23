@@ -17,10 +17,7 @@ void menu();
 void mostrarPacientes();
 void gotoxy(int,int) ;
 void cambio_color(int);
-
-void cambio_color(int x){
-  SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),x);
-}
+void mostrarCursor(bool );
 
 void gotoxy(int x,int y) {
     HANDLE hcon;  
@@ -169,33 +166,77 @@ void ingresoPaciente(){
 }
 
 void menu(){
-	system("cls");
-	//110 x 27
-    int opcion;
-    
-    do{
-        gotoxy(35,3);cout<<"BIENVENIDO AL SISTEMA ";
-        gotoxy(35,5);cout<<"1. INGRESAR PACIENTE ";
-        gotoxy(35,6);cout<<"2. MOSTRAR PACIENTES";
-        gotoxy(35,7);cout<<"3. SALIR";
-        gotoxy(35,8);cout<<"Digite una opcion: ";
-        cin>>opcion;
-		cin.ignore();
-        switch (opcion){
-        case 1:
-            ingresoPaciente();
+    mostrarCursor(false);
+    system("cls");
+    string opciones[3] = {"INGRESAR PACIENTE", "MOSTRAR PACIENTES", "SALIR"};
+    int posX = 40, posY = 5, seleccion=0, cant_opciones=3;
+    int anterior;//guarda la pos de seleccion
+    bool bandera = true;
 
-            getch();
-            break;
-        case 2:
-            mostrarPacientes();
-            getch();
-            break;
-        default:
-            break;
+    // Dibujo el menu principal, todas en blanco
+    for(int i=0;i<cant_opciones;i++){
+        gotoxy(posX, posY + (i*2));
+        cambio_color(15);
+        cout << opciones[i];
+    }
+
+    // Voy a pintar la primera, osea por defecto estará selecionada
+    gotoxy(posX, posY);
+    cambio_color(14);
+    cout << opciones[0];
+
+
+    while(bandera){
+
+        if(kbhit()){
+            
+            char tecla = getch();//es para que no se muestre la tecla
+            anterior = seleccion;
+
+            if(tecla == 72) //Flecha arriba
+                seleccion = (seleccion - 1 + cant_opciones)% cant_opciones;
+            if(tecla == 80) //Flecha abajo
+                seleccion = (seleccion + 1)% cant_opciones;
+            
+            if(tecla ==13){
+                system("cls");
+                bandera=false;
+                cambio_color(15);
+                mostrarCursor(true);
+
+                switch(seleccion){
+
+                    case 0 : ingresoPaciente();break;
+                    case 1 : mostrarPacientes(); break;
+                    case 2 : return;
+                }
+
+                menu();//para que vuelva al menu luego de mostrar lo q sea
+            }
+
+            // Restaurar color de la opción anterior
+            gotoxy(posX, posY + (anterior*2));
+            cambio_color(15);
+            cout << opciones[anterior];
+
+            // Pintar color de la nueva opción seleccionada
+            gotoxy(posX, posY + (seleccion*2));
+            cambio_color(14);
+            cout << opciones[seleccion];
+
+
         }
-        system("cls");
-    }while(opcion != 3);
+
+    }
+}
+
+
+void mostrarCursor(bool visible) {
+    HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE); 
+    CONSOLE_CURSOR_INFO cci;                        
+    GetConsoleCursorInfo(hCon, &cci);              
+    cci.bVisible = visible;                         
+    SetConsoleCursorInfo(hCon, &cci);              
 }
 
 //AQUI FALTA LAS PAGINAS 1 , 2, 3 ,4
@@ -248,6 +289,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
