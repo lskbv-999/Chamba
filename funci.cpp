@@ -131,6 +131,7 @@ void ingresoPaciente(){
         gotoxy(35,9);cout <<"Nivel de gravedad [1-General | 2-UCIN | 3-UCI]: ";
         cin >> nuevo.gravedad;
         if(nuevo.gravedad < 1 || nuevo.gravedad > 3){
+			gotoxy(35+42,9); cout << "   ";
             gotoxy(35,11);cout << "Error: nivel de gravedad invalido. Intente de nuevo.";
         }
     } while(nuevo.gravedad < 1 || nuevo.gravedad > 3);
@@ -247,6 +248,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
