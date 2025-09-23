@@ -110,36 +110,50 @@ void ingresoPaciente(){
          
     for(int j=2; j<=15; j++){   
         gotoxy(30,j); cout << char(186);
-        gotoxy(90,j); cout << char(186);   }
+        gotoxy(90,j); cout << char(186);  }
 	
-           gotoxy(30,2); cout << char(201);  
-            gotoxy(90,2); cout << char(187);  
+        gotoxy(30,2); cout << char(201);  
+        gotoxy(90,2); cout << char(187);  
         gotoxy(30,15); cout << char(200); 
         gotoxy(90,15); cout << char(188); 
 	
     gotoxy(35,3);cout << "INGRESO DEL PACIENTE";
     gotoxy(35,5);cout << "Nombre: ";
-    cin.ignore();
     getline(cin, nuevo.nombre);
     gotoxy(35,6);cout <<"DNI: "; cin >> nuevo.DNI;
-    while(nuevo.DNI<10000000 || nuevo.DNI>99999999 ){
+    while(cin.fail() || nuevo.DNI<10000000 || nuevo.DNI>99999999 ){
+    	cin.clear();
+		cin.ignore(1000,'\n');
     	gotoxy(35,6); cout<<"                                            ";
     	gotoxy(35,6);cout<<"DNI no valido, ingrese de nuevo: ";
 		cin >> nuevo.DNI;
 	}
     gotoxy(35,7);cout <<"Edad: "; cin >> nuevo.edad;
+   	while(cin.fail() || nuevo.edad<0 || nuevo.edad>120){
+		cin.clear();
+		cin.ignore(1000,'\n');
+		gotoxy(35,7);cout<<"                                        ";
+		gotoxy(35,7);cout<<"Edad invalida, ingrese de nuevo: ";
+		cin>>nuevo.edad;
+	}
     gotoxy(35,8);cout <<"Sexo: "; cin >> nuevo.sexo;
-
-    // PARA validad entre 1 a 3
+	while(cin.fail() || (nuevo.sexo!="M" && nuevo.sexo!="F" && nuevo.sexo!="m" && nuevo.sexo!="f")){
+		cin.clear();
+		cin.ignore(1000,'\n');
+		gotoxy(35,8);cout<<"                                        ";
+		gotoxy(35,8);cout<<"Ingrese(M: Masculino o F: Femenino): ";
+		cin>>nuevo.sexo;
+	}
     do {
 		gotoxy(35,9);cout <<"Nivel de gravedad [1-General | 2-UCIN | 3-UCI]: ";
         cin >> nuevo.gravedad;
-        if(nuevo.gravedad < 1 || nuevo.gravedad > 3){
+        if(cin.fail() || nuevo.gravedad < 1 || nuevo.gravedad > 3){
+        	cin.clear();
+			cin.ignore(1000,'\n');
         	gotoxy(35,11); cout<<"                                                      ";
             gotoxy(35,11);cout << "Error: nivel de gravedad invalido. Intente de nuevo.";
             gotoxy(82,9); cout<<"     ";
         }
-
     } while(nuevo.gravedad < 1 || nuevo.gravedad > 3);
     
 	gotoxy(35,11); cout<<"                                                     ";
@@ -152,7 +166,7 @@ void ingresoPaciente(){
             gotoxy(35,13);cout << "Paciente guardado en cama General.";
             } else {
             gotoxy(35,13);cout << "No hay espacio en cama General.";
-               }
+            }
         break;
         case 2:
             if (contUCIN < 30){
@@ -300,6 +314,7 @@ void mostrarPacientes(){
 
     }while(opcion!='b');
     }
+
 
 
 
