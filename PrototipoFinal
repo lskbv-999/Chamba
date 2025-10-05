@@ -21,7 +21,7 @@ paciente camaUCIN[30];
 paciente camaUCI[20];
 
 int contGeneral=0,contUCIN=0,contUCI=0;
-
+void bannerInicio();
 void ingresoMedico();
 void ingresoPaciente();
 void menu();
@@ -43,10 +43,60 @@ void cambio_color(int x){
 
 
 int main(){
+    bannerInicio();
     ingresoMedico();
     cargarPacientes();
     menu();
     return 0;
+}
+
+void bannerInicio() {
+    system("cls");
+    string titulo = "SISTEMA DE GESTION HOSPITALARIA";
+    string subtitulo = "    Hospital Nacional";
+    
+    cambio_color(11);
+    gotoxy(25, 5);
+    cout << char(201);
+    for (int i = 0; i < 40; i++) cout << char(205);
+    cout << char(187);
+
+    for (int i = 6; i <= 11; i++) {
+        gotoxy(25, i); cout << char(186);
+        gotoxy(66, i); cout << char(186);
+    }
+
+    gotoxy(25, 12);
+    cout << char(200);
+    for (int i = 0; i < 40; i++) cout << char(205);
+    cout << char(188);
+
+    // Animación tipo máquina de escribir
+    cambio_color(14);
+    gotoxy(30, 7);
+    for (char c : titulo) {
+        cout << c;
+        Sleep(80);
+    }
+
+    cambio_color(14);
+    gotoxy(33, 9);
+    for (char c : subtitulo) {
+        cout << c;
+        Sleep(50);
+    }
+
+    cambio_color(7);
+    gotoxy(35, 11);
+    cout << "Cargando sistema";
+    for (int i = 0; i < 3; i++) {
+        cout << ".";
+        Sleep(700);
+    }
+    Sleep(600);
+
+    system("cls");
+    cambio_color(15);
 }
 
 string clavesita(){
