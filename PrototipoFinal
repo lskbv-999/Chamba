@@ -5,6 +5,7 @@
 #include <cctype>
 #include <fstream>
 #include <limits>
+#include <algorithm>
 
 using namespace std;
 
@@ -372,7 +373,7 @@ void mostrarPacientes() {
         }
 
         gotoxy(5,20);
-        cout << "[↑/↓] Desplazar  [←/→] Cambiar grupo  [B] Volver";
+        cout << "[Arriba/Abajo] Desplazar  [</>] Cambiar grupo  [B] Volver";
 
         tecla = getch();
 
